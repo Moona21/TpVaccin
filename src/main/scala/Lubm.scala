@@ -1,8 +1,8 @@
 import com.github.javafaker.Faker
 import org.apache.jena.ontology.OntModelSpec
 import org.apache.jena.rdf.model.ModelFactory
-
 import java.io.{File, FileOutputStream}
+import scala.collection.mutable.ListBuffer
 import scala.util.Random
 
 object Lubm extends App {
@@ -52,7 +52,7 @@ object Lubm extends App {
         ml.add(ml.createStatement(i,firstNProperty,ml.createLiteral(faker.name().firstName())))
         ml.add(ml.createStatement(i,lastNPorperty,ml.createLiteral(faker.name().lastName())))
         ml.add(ml.createStatement(i,genderProperty,ml.createLiteral(faker.demographic().sex())))
-        ml.add(ml.createStatement(i,adressProperty,ml.createLiteral(faker.address().toString)))
+        ml.add(ml.createStatement(i,adressProperty,ml.createLiteral(faker.address().zipCode().toString)))
         if (rnd.nextInt(2)==0){
           ml.add(ml.createStatement(i,dateVProperty,ml.createLiteral(faker.date().birthday(0,2).toString)))
           ml.add(ml.createStatement(i,vaccinProperty,ml.createLiteral(vaccinList(rnd.nextInt(vaccinList.length)))))
@@ -65,13 +65,54 @@ object Lubm extends App {
   // j'cris mon modele dans un autre fichier de sortie
   val fichierS= new File("C:/Users/igm/Desktop/ExamVaccin/LubmOutput.ttl")
   val fichierSStream = new FileOutputStream(fichierS)
-  ml.write(fichierSStream)
+  ml.write(fichierSStream,"N-Triples")
 
   //creer une classe personne et a classe aura lees proprietés enrichis dans le fichier lumboutput
+
+
+     def PersonVaccine(): ListBuffer[Person]={
+       val mp = ModelFactory.createDefaultModel()
+       mp.read("file:////C:/Users/igm/Desktop/ExamVaccin/LubmOutput.ttl","TTL")
+      val listFin : ListBuffer[Person] = new ListBuffer[Person]()
+      val personV = mp.listResourcesWithProperty(mp.getProperty(vaccin)) // tte les personne vaccinees
+       personV.forEach(pv => {
+         val listvaccinee = mp.listObjectsOfProperty(pv,vaccinProperty)
+         if (listvaccinee.hasNext){
+           val vaccinName = listvaccinee.next()
+           val idV = mp.listObjectsOfProperty(pv,idProperty).next()
+           val lName = mp.listObjectsOfProperty(pv,lastNPorperty).next()
+           val fName = mp.listObjectsOfProperty(pv,firstNProperty).next()
+           val genre = mp.listObjectsOfProperty(pv,genderProperty).next()
+           val adress = mp.listObjectsOfProperty(pv,adressProperty).next()
+           val vaccinDate =mp.listObjectsOfProperty(pv,dateVProperty).next()
+
+           val ps = new Person(lName.toString,fName.toString,idV.toString, genre.toString,vaccinDate.toString,vaccinName.toString,adress.toString)
+           listFin += ps
+         }
+       })
+       listFin
+
+     }
+      val producer = new ProducerK()
+      producer.Init()
+      val js  = new JsonConverter()
+        PersonVaccine().foreach(jsn => {
+          val personToJson = js.generer(jsn)
+          producer.Produire(personToJson)
+        })
+     val consumer = new ConsumerK()
+     consumer.Consume()
+  producer.close()
+
+
   // lire le fichier lubmoutput
+
   // recuperer les personnes vacciné chaque pero vaccine retourne un objet de type personne
   // converti chaque objet en json
+
+
   // passer le json au producteur pour le produire
+
   //creer un consumer il  va consommer le json
   // utiliser le format avro
   // utiliser l api kafka stream
