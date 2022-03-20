@@ -41,7 +41,7 @@
 <owl:Class rdf:ID="Chair">
   <rdfs:label>chair</rdfs:label>
   <owl:intersectionOf rdf:parseType="Collection">
-  <owl:Class rdf:about="#Person" /> 
+  <owl:Class rdf:about="#fr.uge.bd.Person" />
   <owl:Restriction>
   <owl:onProperty rdf:resource="#headOf" /> 
   <owl:someValuesFrom>
@@ -93,7 +93,7 @@
 <owl:Class rdf:ID="Director">
   <rdfs:label>director</rdfs:label>
   <owl:intersectionOf rdf:parseType="Collection">
-  <owl:Class rdf:about="#Person" /> 
+  <owl:Class rdf:about="#fr.uge.bd.Person" />
   <owl:Restriction>
   <owl:onProperty rdf:resource="#headOf" /> 
   <owl:someValuesFrom>
@@ -106,7 +106,7 @@
 <owl:Class rdf:ID="Employee">
   <rdfs:label>Employee</rdfs:label>
   <owl:intersectionOf rdf:parseType="Collection">
-  <owl:Class rdf:about="#Person" /> 
+  <owl:Class rdf:about="#fr.uge.bd.Person" />
   <owl:Restriction>
   <owl:onProperty rdf:resource="#worksFor" /> 
   <owl:someValuesFrom>
@@ -133,7 +133,7 @@
 
 <owl:Class rdf:ID="GraduateStudent">
   <rdfs:label>graduate student</rdfs:label>
-  <rdfs:subClassOf rdf:resource="#Person" /> 
+  <rdfs:subClassOf rdf:resource="#fr.uge.bd.Person" />
   <rdfs:subClassOf>
   <owl:Restriction>
   <owl:onProperty rdf:resource="#takesCourse" /> 
@@ -168,7 +168,7 @@
   <rdfs:label>organization</rdfs:label>
 </owl:Class>
 
-<owl:Class rdf:ID="Person">
+<owl:Class rdf:ID="fr.uge.bd.Person">
   <rdfs:label>person</rdfs:label>
 </owl:Class>
 
@@ -198,7 +198,7 @@
 
 <owl:Class rdf:ID="ResearchAssistant">
   <rdfs:label>university research assistant</rdfs:label>
-  <rdfs:subClassOf rdf:resource="#Person" /> 
+  <rdfs:subClassOf rdf:resource="#fr.uge.bd.Person" />
   <rdfs:subClassOf>
   <owl:Restriction>
   <owl:onProperty rdf:resource="#worksFor" /> 
@@ -231,7 +231,7 @@
 <owl:Class rdf:ID="Student">
   <rdfs:label>student</rdfs:label>
   <owl:intersectionOf rdf:parseType="Collection">
-  <owl:Class rdf:about="#Person" /> 
+  <owl:Class rdf:about="#fr.uge.bd.Person" />
   <owl:Restriction>
   <owl:onProperty rdf:resource="#takesCourse" /> 
   <owl:someValuesFrom>
@@ -249,7 +249,7 @@
 <owl:Class rdf:ID="TeachingAssistant">
   <rdfs:label>university teaching assistant</rdfs:label>
   <owl:intersectionOf rdf:parseType="Collection">
-  <owl:Class rdf:about="#Person" /> 
+  <owl:Class rdf:about="#fr.uge.bd.Person" />
   <owl:Restriction>
   <owl:onProperty rdf:resource="#teachingAssistantOf" /> 
   <owl:someValuesFrom>
@@ -290,7 +290,7 @@
 
 <owl:ObjectProperty rdf:ID="advisor">
   <rdfs:label>is being advised by</rdfs:label>
-  <rdfs:domain rdf:resource="#Person" />
+  <rdfs:domain rdf:resource="#fr.uge.bd.Person" />
   <rdfs:range rdf:resource="#Professor" />
 </owl:ObjectProperty>
 
@@ -303,37 +303,37 @@
 <owl:ObjectProperty rdf:ID="affiliateOf">
   <rdfs:label>is affiliated with</rdfs:label>
   <rdfs:domain rdf:resource="#Organization" />
-  <rdfs:range rdf:resource="#Person" />
+  <rdfs:range rdf:resource="#fr.uge.bd.Person" />
 </owl:ObjectProperty>
 
 <owl:DatatypeProperty rdf:ID="age">
   <rdfs:label>is age</rdfs:label>
-  <rdfs:domain rdf:resource="#Person" />
+  <rdfs:domain rdf:resource="#fr.uge.bd.Person" />
 </owl:DatatypeProperty>
 
 <owl:ObjectProperty rdf:ID="degreeFrom">
   <rdfs:label>has a degree from</rdfs:label>
-  <rdfs:domain rdf:resource="#Person" />
+  <rdfs:domain rdf:resource="#fr.uge.bd.Person" />
   <rdfs:range rdf:resource="#University" />
   <owl:inverseOf rdf:resource="#hasAlumnus"/>
 </owl:ObjectProperty>
 
 <owl:ObjectProperty rdf:ID="doctoralDegreeFrom">
   <rdfs:label>has a doctoral degree from</rdfs:label>
-  <rdfs:domain rdf:resource="#Person" />
+  <rdfs:domain rdf:resource="#fr.uge.bd.Person" />
   <rdfs:range rdf:resource="#University" />
   <rdfs:subPropertyOf rdf:resource="#degreeFrom" />
 </owl:ObjectProperty>
 
 <owl:DatatypeProperty rdf:ID="emailAddress">
   <rdfs:label>can be reached at</rdfs:label>
-  <rdfs:domain rdf:resource="#Person" />
+  <rdfs:domain rdf:resource="#fr.uge.bd.Person" />
 </owl:DatatypeProperty>
 
 <owl:ObjectProperty rdf:ID="hasAlumnus">
   <rdfs:label>has as an alumnus</rdfs:label>
   <rdfs:domain rdf:resource="#University" />
-  <rdfs:range rdf:resource="#Person" />
+  <rdfs:range rdf:resource="#fr.uge.bd.Person" />
   <owl:inverseOf rdf:resource="#degreeFrom"/>
 </owl:ObjectProperty>
 
@@ -350,7 +350,7 @@
 
 <owl:ObjectProperty rdf:ID="mastersDegreeFrom">
   <rdfs:label>has a masters degree from</rdfs:label>
-  <rdfs:domain rdf:resource="#Person" />
+  <rdfs:domain rdf:resource="#fr.uge.bd.Person" />
   <rdfs:range rdf:resource="#University" />
   <rdfs:subPropertyOf rdf:resource="#degreeFrom"/>
 </owl:ObjectProperty>
@@ -358,7 +358,7 @@
 <owl:ObjectProperty rdf:ID="member">
   <rdfs:label>has as a member</rdfs:label>
   <rdfs:domain rdf:resource="#Organization" />
-  <rdfs:range rdf:resource="#Person" />
+  <rdfs:range rdf:resource="#fr.uge.bd.Person" />
 </owl:ObjectProperty>
 
 <owl:ObjectProperty rdf:ID="memberOf">
@@ -383,7 +383,7 @@
 <owl:ObjectProperty rdf:ID="publicationAuthor">
   <rdfs:label>was written by</rdfs:label>
   <rdfs:domain rdf:resource="#Publication" />
-  <rdfs:range rdf:resource="#Person" />
+  <rdfs:range rdf:resource="#fr.uge.bd.Person" />
 </owl:ObjectProperty>
 
 <owl:ObjectProperty rdf:ID="publicationDate">
@@ -442,7 +442,7 @@
 
 <owl:DatatypeProperty rdf:ID="telephone">
   <rdfs:label>telephone number</rdfs:label>
-  <rdfs:domain rdf:resource="#Person" />
+  <rdfs:domain rdf:resource="#fr.uge.bd.Person" />
 </owl:DatatypeProperty>
 
 <owl:ObjectProperty rdf:ID="tenured">
@@ -452,12 +452,12 @@
 
 <owl:DatatypeProperty rdf:ID="title">
   <rdfs:label>title</rdfs:label>
-  <rdfs:domain rdf:resource="#Person" />
+  <rdfs:domain rdf:resource="#fr.uge.bd.Person" />
 </owl:DatatypeProperty>
 
 <owl:ObjectProperty rdf:ID="undergraduateDegreeFrom">
   <rdfs:label>has an undergraduate degree from</rdfs:label>
-  <rdfs:domain rdf:resource="#Person" />
+  <rdfs:domain rdf:resource="#fr.uge.bd.Person" />
   <rdfs:range rdf:resource="#University" />
   <rdfs:subPropertyOf rdf:resource="#degreeFrom"/>
 </owl:ObjectProperty>
