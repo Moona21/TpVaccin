@@ -6,6 +6,19 @@ import java.util.Properties;
 public class ProducerK {
     Properties props = new Properties();
   KafkaProducer<String, String> producer;
+    public void prodAvro(byte[] avroRecord){
+        initAvro();
+        KafkaProducer<String, byte[]> kafkaProducer = new KafkaProducer<>(props);
+        ProducerRecord<String, byte[]> record = new ProducerRecord<>("topic", avroRecord);
+        kafkaProducer.send(record);
+        System.out.println("produced");
+        try {
+            Thread.sleep(250);
+        }catch (InterruptedException e){
+            System.err.println(e.getMessage());
+        }
+        kafkaProducer.close();
+    }
 
     public void Produire(String prsnJson){
         ProducerRecord<String, String> record = new ProducerRecord<String, String>("topic", prsnJson);
@@ -16,6 +29,13 @@ public class ProducerK {
         }catch (InterruptedException e){
             System.out.println(e.getMessage());
         }
+    }
+    public void initAvro(){
+
+        props.put("bootstrap.servers", "localhost:9092");
+        props.put("key.serializer", "org.apache.kafka.common.serialization.StringSerializer");
+        props.put("value.serializer", "org.apache.kafka.common.serialization.ByteArraySerializer");
+
     }
 
     public void Init(){

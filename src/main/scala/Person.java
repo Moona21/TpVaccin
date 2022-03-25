@@ -1,3 +1,7 @@
+import org.apache.avro.Schema;
+import org.apache.avro.generic.GenericRecord;
+import org.apache.avro.generic.GenericRecordBuilder;
+
 import java.util.Random;
 
 public class Person {
@@ -16,7 +20,21 @@ public class Person {
     private String[] sideC = new String[]{"C0151828","C0015672","C0018681","C0231528","C0085593","C0003862","C0015967",
             "C0151605","C0027497","C0231218","C0497156","C0863083"};
 
+    public GenericRecord apply(Schema schema) {
+        var builder = new GenericRecordBuilder(schema);
+        builder
+                .set("lastName", firstName)
+                .set("firstName", lastName)
+                .set("mid", mid)
+                .set("gender", gender)
+                .set("dateV", dateV)
+                .set("vaccin", vaccin)
+                .set("adresse", adresse)
+                .set("sideEffect", sideEffect)
+                .set("siderCode", siderCode);
 
+        return builder.build();
+    }
 
     public Person(String lastName,
                   String firstName,

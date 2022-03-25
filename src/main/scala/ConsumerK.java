@@ -49,4 +49,29 @@ public class ConsumerK {
 
 
     }
+    public void startAvro(int size){
+
+        Properties properties =  new Properties();
+        properties.put("bootstrap.servers","localhost:9092");
+        properties.put("key.deserializer", "org.apache.kafka.common.serialization.StringDeserializer");
+        properties.put("value.deserializer", "org.apache.kafka.common.serialization.ByteArrayDeserializer");
+        properties.put("auto.offset.reset","earliest");
+        properties.put("group.id","mygroup");
+
+        KafkaConsumer<String, byte[]> consumer  = new KafkaConsumer<String, byte[]>(properties);
+        consumer.subscribe(Arrays.asList("topicTP1"));
+        System.out.println("consumed from topicTP1");
+
+        boolean running = true;
+        while (running){
+            ConsumerRecords<String, byte[]> records = consumer.poll(size);
+            records.forEach(record -> {
+                System.out.println(record.value());
+            });
+
+        }
+
+        consumer.close();
+
+    }
 }

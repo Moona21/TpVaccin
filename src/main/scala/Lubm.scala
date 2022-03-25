@@ -94,15 +94,29 @@ object Lubm extends App {
   }
 
   val producer = new ProducerK()
-  producer.Init()
+ /* producer.Init()
   val js = new JsonConverter()
   PersonVaccine().foreach(jsn => {
     val personToJson = js.generer(jsn)
     producer.Produire(personToJson)
+  })*/
+
+
+  val ac = new AvroConvertor()
+  PersonVaccine().foreach(av => {
+    val prsn = ac.generate(av)
+    producer.prodAvro(prsn)
+
   })
+
+
   val consumer = new ConsumerK()
   consumer.Consume()
   producer.close()
+
+
+
+
 
 
   // lire le fichier lubmoutput
